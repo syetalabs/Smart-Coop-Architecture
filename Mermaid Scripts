@@ -1,0 +1,205 @@
+1) Authentication Flow
+
+graph TD
+    A[SPLASH SCREEN<br/>- App Logo<br/>- Loading Indicator<br/>- Version Info] --> B{First Time User?}
+    B -->|Yes| C[REGISTRATION SCREEN<br/>- Create Account Button<br/>- Login Link<br/>- Terms & Conditions]
+    B -->|No| D[LOGIN SCREEN<br/>- Email Input<br/>- PIN Input<br/>- Biometric Button<br/>- Register Link<br/>- Forgot PIN Link]
+    D --> E{Login Method}
+    E -->|Email/PIN| F[Enter Credentials]
+    E -->|Biometric| G[BIOMETRIC PROMPT<br/>- Fingerprint Icon<br/>- Face ID Icon<br/>- Cancel Button<br/>- Fallback to PIN]
+    F --> H{Credentials Valid?}
+    H -->|No| I[ERROR MESSAGE<br/>- Error Icon<br/>- Error Text<br/>- Try Again Button<br/>- Forgot PIN Link]
+    H -->|Yes| J{OTP Required?}
+    G --> K{Biometric Success?}
+    K -->|No| I
+    K -->|Yes| L[HOME DASHBOARD]
+    J -->|Yes| M[OTP SCREEN<br/>- 6-digit OTP Input<br/>- Timer Countdown<br/>- Resend Button<br/>- Verify Button]
+    J -->|No| L
+    M --> N{OTP Valid?}
+    N -->|No| I
+    N -->|Yes| L
+    I --> O{Device Blocked?}
+    O -->|Yes| P[DEVICE BLOCK MESSAGE<br/>- Warning Icon<br/>- Block Message<br/>- Contact Support<br/>- Try Again Button]
+    O -->|No| D
+    C --> Q[Go to Registration Flow]
+    classDef startEnd fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef process fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef decision fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef error fill:#ffebee,stroke:#c62828,stroke-width:2px
+    classDef success fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    class A,L startEnd
+    class I,P error
+    class B,E,H,J,K,N,O decision
+	O
+	O
+	O
+
+2) Registration Flow
+
+graph TD
+    A[From Authentication Flow] --> B[NIC INPUT SCREEN<br/>- NIC Number Field<br/>- Submit Button<br/>- Back Button<br/>- Help Text]
+    
+    B --> C{NIC Lookup Result}
+    
+    C -->|New User| D[FULL DETAILS FORM<br/>- First Name<br/>- Last Name<br/>- Email<br/>- Mobile Number<br/>- Address<br/>- Date of Birth<br/>- Submit Button]
+    
+    C -->|BSP User Exists| E[WALLET CREATION PROMPT<br/>- Welcome Message<br/>- Create Wallet Button<br/>- Terms & Conditions<br/>- Wallet Name Input<br/>- Skip for Later]
+    
+    C -->|Existing Savings User| F[ACCOUNT LINKING SCREEN<br/>- Existing Account Info<br/>- Link Account Button<br/>- Verify Identity<br/>- Account Details<br/>- Continue Button]
+    
+    D --> G[CREATE ACCOUNT<br/>- Processing Loader<br/>- Account Creation Status]
+    E --> H[CREATE WALLET<br/>- Processing Loader<br/>- Wallet Setup Status]
+    F --> I[LINK ACCOUNT<br/>- Processing Loader<br/>- Linking Status]
+    
+    G --> J[REGISTRATION SUCCESS<br/>- Success Icon<br/>- Welcome Message<br/>- Account Details<br/>- Continue to App]
+    H --> J
+    I --> J
+    
+    J --> K[HOME DASHBOARD]
+    
+    classDef startEnd fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef process fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef decision fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef success fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    
+    class A,K startEnd
+    class J success
+    class C decision
+
+3) Dashboard and Navigation Flow
+
+graph TD
+    A[HOME DASHBOARD<br/>- Balance Card with Nickname<br/>- Quick Actions Grid<br/>- Recent Transactions<br/>- Profile Icon<br/>- Language Toggle<br/>- Settings Menu] --> B{User Action}
+    
+    B -->|Transfer Money| C[Go to Transfer Flow]
+    B -->|Pay Bills| D[Go to Bill Payment Flow]
+    B -->|Top-Up Wallet| E[Go to Top-Up Flow]
+    B -->|Scan QR Code| F[Go to QR Scanner Flow]
+    B -->|View Profile| G[Go to Profile Flow]
+    B -->|Transaction History| H[Go to History Flow]
+    B -->|Language Settings| I[Go to Language Flow]
+    B -->|Savings/FD| J[Go to Savings Flow]
+    B -->|Payments| K[Go to Payments Flow]
+    B -->|Payment Instruments| L[Go to Instruments Flow]
+    
+    A --> M[QUICK ACTIONS DETAIL<br/>- Transfer Money Icon<br/>- Pay Bills Icon<br/>- Top-Up Wallet Icon<br/>- Scan QR Icon<br/>- More Services Button]
+    
+    A --> N[RECENT TRANSACTIONS<br/>- Last 5 Transactions<br/>- Transaction Amount<br/>- Transaction Type<br/>- Date & Time<br/>- View All Button]
+    
+    N --> H
+    
+    classDef startEnd fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef process fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef decision fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef navigation fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    
+    class A startEnd
+    class B decision
+    class C,D,E,F,G,H,I,J,K,L navigation
+	
+4) My Profile Flow
+
+graph TD
+    A[From Home Dashboard] --> B[PROFILE VIEW<br/>- Profile Photo<br/>- Full Name<br/>- Email Address<br/>- Mobile Number<br/>- Account Status<br/>- Edit Profile Button<br/>- Change PIN Button<br/>- Settings Button]
+    
+    B --> C{Profile Action}
+    
+    C -->|Edit Profile| D[EDIT PROFILE SCREEN<br/>- Photo Upload Button<br/>- First Name Field<br/>- Last Name Field<br/>- Email Field<br/>- Mobile Field<br/>- Address Field<br/>- Save Changes Button<br/>- Cancel Button]
+    
+    C -->|Change PIN| E[CHANGE PIN SCREEN<br/>- Current PIN Input<br/>- New PIN Input<br/>- Confirm New PIN Input<br/>- PIN Strength Indicator<br/>- Change PIN Button<br/>- Cancel Button]
+    
+    C -->|Settings| F[SETTINGS SCREEN<br/>- Notification Settings<br/>- Security Settings<br/>- Language Preferences<br/>- About App<br/>- Logout Button]
+    
+    D --> G[SAVE CHANGES<br/>- Processing Loader<br/>- Validation Messages]
+    
+    E --> H[PIN VALIDATION<br/>- Verify Current PIN<br/>- Validate New PIN<br/>- Confirm PIN Match]
+    
+    G --> I{Save Successful?}
+    I -->|Yes| J[PROFILE UPDATED<br/>- Success Message<br/>- Updated Profile Info<br/>- Back to Profile Button]
+    I -->|No| K[ERROR MESSAGE<br/>- Error Details<br/>- Try Again Button]
+    
+    H --> L{PIN Change Valid?}
+    L -->|Yes| M[PIN CHANGED SUCCESS<br/>- Success Icon<br/>- Confirmation Message<br/>- Back to Profile Button]
+    L -->|No| N[PIN ERROR<br/>- Error Message<br/>- Try Again Button]
+    
+    J --> B
+    K --> D
+    M --> B
+    N --> E
+    
+    classDef startEnd fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef process fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef decision fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef success fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef error fill:#ffebee,stroke:#c62828,stroke-width:2px
+    
+    class A,B startEnd
+    class C,I,L decision
+    class J,M success
+    class K,N error
+
+5) Transaction History Flow
+
+graph TD
+    A[From Home Dashboard] --> B[TRANSACTION HISTORY<br/>- Date Range Filter<br/>- Transaction Type Filter<br/>- Search Bar<br/>- Sort Options<br/>- Transaction List<br/>- Load More Button]
+    
+    B --> C{User Action}
+    
+    C -->|Apply Filters| D[FILTER OPTIONS<br/>- Date Range Picker<br/>- Transaction Types<br/>  • Transfer<br/>  • Bill Payment<br/>  • Top-Up<br/>  • QR Payment<br/>- Amount Range<br/>- Apply Button<br/>- Clear Button]
+    
+    C -->|Search| E[SEARCH RESULTS<br/>- Search Query<br/>- Matching Transactions<br/>- No Results Message<br/>- Clear Search Button]
+    
+    C -->|View Transaction| F[TRANSACTION DETAIL<br/>- Transaction ID<br/>- Amount<br/>- Date & Time<br/>- Transaction Status<br/>- Recipient/Sender Info<br/>- Reference Number<br/>- Transaction Fee<br/>- Download Receipt<br/>- Back Button]
+    
+    D --> G[FILTERED RESULTS<br/>- Applied Filter Tags<br/>- Filtered Transaction List<br/>- Results Count<br/>- Clear Filters Option]
+    
+    G --> B
+    E --> B
+    
+    F --> H{Transaction Action}
+    H -->|Download Receipt| I[RECEIPT DOWNLOAD<br/>- PDF Generation<br/>- Download Success<br/>- Share Options]
+    H -->|Back| B
+    
+    I --> F
+    
+    classDef startEnd fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef process fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef decision fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef success fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    
+    class A,B startEnd
+    class C,H decision
+    class I success
+
+6) Bill Payment Flow
+
+graph TD
+    A[From Home Dashboard] --> B[BILLERS LIST<br/>- Search Bar<br/>- Category Tabs<br/>  • Utilities<br/>  • Telecom<br/>  • Insurance<br/>  • Government<br/>- Biller Logos Grid<br/>- Favorites Section<br/>- Recently Used]
+    
+    B --> C[SELECT BILLER<br/>- Biller Logo<br/>- Biller Name<br/>- Service Description<br/>- Continue Button]
+    
+    C --> D[BILL PAYMENT FORM<br/>- Account Number Input<br/>- Customer Name<br/>- Amount Field<br/>- Reference Number<br/>- Payment Method Selector<br/>- Due Date Display<br/>- Continue Button]
+    
+    D --> E[PAYMENT CONFIRMATION<br/>- Bill Details Summary<br/>- Biller Information<br/>- Account Number<br/>- Amount to Pay<br/>- Payment Method<br/>- Transaction Fee<br/>- Total Amount<br/>- Confirm Payment Button<br/>- Edit Button]
+    
+    E --> F{Confirm Payment?}
+    F -->|Yes| G[PROCESS PAYMENT<br/>- Payment Processing<br/>- Loading Indicator<br/>- Please Wait Message]
+    F -->|No| D
+    
+    G --> H{Payment Success?}
+    H -->|Yes| I[PAYMENT SUCCESS<br/>- Success Icon<br/>- Transaction ID<br/>- Amount Paid<br/>- Payment Date<br/>- Biller Confirmation<br/>- Download Receipt<br/>- Share Receipt<br/>- Done Button]
+    H -->|No| J[PAYMENT FAILED<br/>- Error Icon<br/>- Error Message<br/>- Failure Reason<br/>- Try Again Button<br/>- Contact Support]
+    
+    I --> K[Back to Home]
+    J --> D
+    
+    classDef startEnd fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef process fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef decision fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef success fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef error fill:#ffebee,stroke:#c62828,stroke-width:2px
+    
+    class A,K startEnd
+    class F,H decision
+    class I success
+    class J error
