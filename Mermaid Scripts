@@ -203,3 +203,231 @@ graph TD
     class F,H decision
     class I success
     class J error
+
+7) Fund transfer Flow
+
+graph TD
+    A[From Home Dashboard] --> B[TRANSFER OPTIONS<br/>- Bank Transfer<br/>- Wallet Transfer<br/>- QR Code Transfer<br/>- Contact Transfer<br/>- Favorites List<br/>- Recent Transfers]
+    B --> C{Transfer Type}
+    C -->|Bank Transfer| D[BANK TRANSFER FORM<br/>- Bank Selection Dropdown<br/>- Account Number Input<br/>- Account Holder Name<br/>- Amount Field<br/>- Reference/Message<br/>- Save as Favorite<br/>- Continue Button]
+    C -->|Wallet Transfer| E[WALLET TRANSFER FORM<br/>- Mobile Number Input<br/>- Amount Field<br/>- Message/Reference<br/>- Continue Button]
+    C -->|QR Transfer| F[QR SCANNER<br/>- Camera View<br/>- QR Frame Overlay<br/>- Flash Toggle<br/>- Gallery Upload<br/>- Manual Entry<br/>- Cancel Button]
+    C -->|Contact Transfer| G[CONTACT PICKER<br/>- Search Bar<br/>- Contact List<br/>- Recent Contacts<br/>- Phone Number Display<br/>- Select Button]
+    D --> H{Account Exists?}
+    H -->|New| I[ADD TO FAVORITES<br/>- Save Account Option<br/>- Nickname Input<br/>- Continue Button]
+    H -->|Saved| J[ENTER AMOUNT<br/>- Amount Input<br/>- Available Balance<br/>- Reference Field<br/>- Continue Button]
+    I --> J
+    E --> J
+    F --> K{Valid QR?}
+    K -->|Yes| L[QR PAYMENT DETAILS<br/>- Merchant Info<br/>- Amount if preset<br/>- Payment Reference<br/>- Continue Button]
+    K -->|No| M[INVALID QR ERROR<br/>- Error Message<br/>- Try Again Button<br/>- Manual Entry Option]
+    L --> J
+    M --> F
+    G --> N[SELECTED CONTACT<br/>- Contact Name<br/>- Phone Number<br/>- Amount Field<br/>- Message Field<br/>- Continue Button]
+    N --> J
+    J --> O[TRANSFER CONFIRMATION<br/>- Recipient Details<br/>- Transfer Amount<br/>- Transaction Fee<br/>- Total Deduction<br/>- Available Balance<br/>- Transfer Button<br/>- Edit Button]
+    O --> P{Confirm Transfer?}
+    P -->|Yes| Q[PROCESS TRANSFER<br/>- Processing Animation<br/>- Please Wait Message<br/>- Transfer Status]
+    P -->|No| J
+    Q --> R{Transfer Success?}
+    R -->|Yes| S[TRANSFER SUCCESS<br/>- Success Animation<br/>- Transaction ID<br/>- Amount Transferred<br/>- Recipient Info<br/>- New Balance<br/>- Receipt Download<br/>- Share Receipt<br/>- Done Button]
+    R -->|No| T[TRANSFER FAILED<br/>- Error Icon<br/>- Error Message<br/>- Failure Reason<br/>- Try Again Button<br/>- Contact Support]
+    S --> U[Back to Home]
+    T --> J
+
+    classDef startEnd fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef process fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef decision fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef success fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef error fill:#ffebee,stroke:#c62828,stroke-width:2px
+    
+    class A,U startEnd
+    class C,H,K,P,R decision
+    class S success
+    class M,T error
+
+8) Savings and fixed deposits Flow
+
+graph TD
+    A[From Home Dashboard] --> B[ACCOUNTS OVERVIEW<br/>- Total Balance Summary<br/>- Savings Accounts List<br/>- Fixed Deposits List<br/>- Account Cards<br/>- Add New Account<br/>- Refresh Balance]
+    
+    B --> C{Account Type Selection}
+    
+    C -->|Savings Account| D[SAVINGS ACCOUNTS LIST<br/>- Account Number<br/>- Account Name<br/>- Current Balance<br/>- Interest Rate<br/>- Account Status<br/>- View Details Button]
+    
+    C -->|Fixed Deposit| E[FIXED DEPOSITS LIST<br/>- FD Number<br/>- Principal Amount<br/>- Maturity Amount<br/>- Maturity Date<br/>- Interest Rate<br/>- Status<br/>- View Details Button]
+    
+    D --> F[SAVINGS ACCOUNT DETAILS<br/>- Account Number<br/>- Account Holder Name<br/>- Current Balance<br/>- Available Balance<br/>- Interest Rate<br/>- Account Opening Date<br/>- Recent Transactions<br/>- Download Statement<br/>- Transfer Money<br/>- Back Button]
+    
+    E --> G[FD DETAILS<br/>- FD Number<br/>- Principal Amount<br/>- Maturity Amount<br/>- Interest Earned<br/>- Maturity Date<br/>- Interest Rate<br/>- Days Remaining<br/>- Auto Renewal Status<br/>- Certificate Download<br/>- Back Button]
+    
+    F --> H{Account Action}
+    H -->|View Statement| I[STATEMENT OPTIONS<br/>- Date Range Selection<br/>- Statement Type<br/>- Download PDF<br/>- Email Statement<br/>- View Online]
+    H -->|Transfer| J[Go to Transfer Flow]
+    H -->|Back| D
+    
+    G --> K{FD Action}
+    K -->|Download Certificate| L[CERTIFICATE DOWNLOAD<br/>- PDF Generation<br/>- Download Success<br/>- Share Options]
+    K -->|Back| E
+    
+    I --> M[STATEMENT GENERATED<br/>- Success Message<br/>- Download Link<br/>- Email Sent Confirmation<br/>- Back to Account]
+    
+    L --> G
+    M --> F
+    
+    classDef startEnd fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef process fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef decision fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef success fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef navigation fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    
+    class A startEnd
+    class C,H,K decision
+    class L,M success
+    class J navigation
+
+9) Payments and QR Flow
+
+graph TD
+    A[From Home Dashboard] --> B[PAYMENTS MENU<br/>- Merchant Payments<br/>- Government Payments<br/>- LankaQR Scanner<br/>- Utility Payments<br/>- Transport Payments<br/>- Entertainment<br/>- Recent Payments]
+    
+    B --> C{Payment Type}
+    
+    C -->|Merchant| D[PAYMENT CATEGORIES<br/>- Restaurants<br/>- Retail Stores<br/>- Online Shopping<br/>- Services<br/>- Search Bar<br/>- Featured Merchants]
+    
+    C -->|Government| E[GOV PAY SCREEN<br/>- Service Categories<br/>- Tax Payments<br/>- License Renewals<br/>- Fines & Penalties<br/>- Other Services<br/>- Reference Number Input<br/>- Amount Field<br/>- Pay Button]
+    
+    C -->|LankaQR| F[LANKAQR SCANNER<br/>- QR Camera View<br/>- Scan Frame<br/>- Flash Toggle<br/>- Gallery Upload<br/>- Manual QR Entry<br/>- Scan History<br/>- Cancel Button]
+    
+    D --> G[VENDOR LIST<br/>- Search Bar<br/>- Category Filter<br/>- Vendor Logos<br/>- Vendor Names<br/>- Ratings/Reviews<br/>- Favorites Section<br/>- Select Vendor]
+    
+    G --> H[VENDOR PAYMENT<br/>- Vendor Logo<br/>- Vendor Name<br/>- Amount Input<br/>- Payment Reference<br/>- Payment Method<br/>- Pay Button]
+    
+    E --> I[GOV PAYMENT FORM<br/>- Service Selected<br/>- Reference Number<br/>- Amount Display<br/>- Payment Method<br/>- Proceed to Pay]
+    
+    F --> J{QR Scan Result}
+    J -->|Valid LankaQR| K[LANKAQR PAYMENT<br/>- Merchant Information<br/>- Transaction Amount<br/>- QR Reference<br/>- Payment Method<br/>- Confirm Payment]
+    J -->|Invalid QR| L[INVALID QR ERROR<br/>- Error Message<br/>- Try Again Button<br/>- Manual Entry Option]
+    
+    H --> M[PAYMENT CONFIRMATION<br/>- Vendor Details<br/>- Amount Summary<br/>- Payment Method<br/>- Transaction Fee<br/>- Total Amount<br/>- Confirm Button]
+    
+    I --> M
+    K --> M
+    L --> F
+    
+    M --> N{Confirm Payment?}
+    N -->|Yes| O[PROCESS PAYMENT<br/>- Payment Processing<br/>- Loading Animation<br/>- Status Updates]
+    N -->|No| P[Back to Payment Form]
+    
+    O --> Q{Payment Success?}
+    Q -->|Yes| R[PAYMENT SUCCESS<br/>- Success Icon<br/>- Transaction ID<br/>- Amount Paid<br/>- Merchant/Service Info<br/>- Receipt Download<br/>- Done Button]
+    Q -->|No| S[PAYMENT FAILED<br/>- Error Icon<br/>- Error Details<br/>- Try Again Button<br/>- Contact Support]
+    
+    R --> T[Back to Home]
+    S --> M
+    P --> H
+    P --> I
+    P --> K
+    
+    classDef startEnd fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef process fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef decision fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef success fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef error fill:#ffebee,stroke:#c62828,stroke-width:2px
+    
+    class A,T startEnd
+    class C,J,N,Q decision
+    class R success
+    class L,S error
+
+10) Payment instruments Flow
+
+graph TD
+    A[From Home Dashboard] --> B[PAYMENT INSTRUMENTS<br/>- Credit Cards List<br/>- Debit Cards List<br/>- Bank Accounts List<br/>- Card/Account Icons<br/>- Add New Button<br/>- Manage Options<br/>- Default Payment Method]
+    
+    B --> C{User Action}
+    
+    C -->|Add Card| D[ADD CARD SCREEN<br/>- Card Number Input<br/>- Expiry Date<br/>- CVV Input<br/>- Cardholder Name<br/>- Card Type Detection<br/>- Save Card Checkbox<br/>- Add Card Button]
+    
+    C -->|Add Bank Account| E[ADD BANK ACCOUNT<br/>- Bank Selection Dropdown<br/>- Account Number Input<br/>- Account Type Selection<br/>- Account Holder Name<br/>- Branch Code<br/>- Verify Account Button]
+    
+    C -->|Manage Existing| F[SAVED INSTRUMENTS<br/>- Instrument List<br/>- Card/Account Details<br/>- Default Indicator<br/>- Edit Button<br/>- Delete Button<br/>- Set as Default Option]
+    
+    D --> G[CARD VERIFICATION<br/>- OTP Sent Message<br/>- OTP Input Field<br/>- Timer Countdown<br/>- Resend OTP<br/>- Verify Button<br/>- Cancel Button]
+    
+    E --> H[ACCOUNT VERIFICATION<br/>- Micro Deposit Info<br/>- OTP from Bank<br/>- Verification Code Input<br/>- Verify Button<br/>- Try Again Option]
+    
+    G --> I{Card OTP Valid?}
+    I -->|Yes| J[CARD ADDED SUCCESS<br/>- Success Icon<br/>- Card Details Masked<br/>- Success Message<br/>- Done Button]
+    I -->|No| K[OTP ERROR<br/>- Error Message<br/>- Attempts Remaining<br/>- Try Again Button<br/>- Contact Support]
+    
+    H --> L{Account Verified?}
+    L -->|Yes| M[ACCOUNT ADDED SUCCESS<br/>- Success Icon<br/>- Account Details<br/>- Success Message<br/>- Done Button]
+    L -->|No| N[VERIFICATION FAILED<br/>- Error Message<br/>- Verification Steps<br/>- Try Again Button<br/>- Contact Bank]
+    
+    F --> O{Manage Action}
+    O -->|Edit| P[EDIT INSTRUMENT<br/>- Editable Fields<br/>- Update Button<br/>- Cancel Button]
+    O -->|Delete| Q[CONFIRM DELETE<br/>- Delete Warning<br/>- Instrument Details<br/>- Confirm Delete<br/>- Cancel Button]
+    O -->|Set Default| R[SET AS DEFAULT<br/>- Confirmation Message<br/>- Default Updated<br/>- Back to List]
+    
+    J --> B
+    K --> G
+    M --> B
+    N --> H
+    
+    P --> S[UPDATE SUCCESS<br/>- Success Message<br/>- Updated Details<br/>- Back to List]
+    
+    Q --> T{Confirm Delete?}
+    T -->|Yes| U[INSTRUMENT DELETED<br/>- Success Message<br/>- Updated List<br/>- Back to Instruments]
+    T -->|No| F
+    
+    R --> B
+    S --> B
+    U --> B
+    
+    classDef startEnd fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef process fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef decision fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef success fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef error fill:#ff
+
+11) Wallet Top up Flow
+
+graph TD
+    A[From Home Dashboard] --> B[TOP-UP WALLET<br/>- Current Balance Display<br/>- Payment Method Options<br/>  • Credit Card<br/>  • Debit Card<br/>  • Bank Account<br/>  • Online Banking<br/>- Select Payment Method<br/>- Continue Button]
+    
+    B --> C[SELECT PAYMENT INSTRUMENT<br/>- Saved Cards List<br/>- Saved Bank Accounts<br/>- Add New Option<br/>- Default Payment Method<br/>- Select Button]
+    
+    C --> D{Payment Method}
+    D -->|Existing| E[ENTER TOP-UP AMOUNT<br/>- Amount Input Field<br/>- Quick Amount Buttons<br/>  • Rs. 500<br/>  • Rs. 1000<br/>  • Rs. 2000<br/>  • Rs. 5000<br/>- Minimum Amount Info<br/>- Maximum Amount Info<br/>- Selected Payment Method<br/>- Continue Button]
+    
+    D -->|Add New| F[Go to Add Payment Instrument]
+    
+    E --> G[TOP-UP CONFIRMATION<br/>- Top-Up Amount<br/>- Service Fee<br/>- Total Charge<br/>- Payment Method Details<br/>- Current Balance<br/>- New Balance After Top-Up<br/>- Confirm Top-Up Button<br/>- Edit Button]
+    
+    G --> H{Confirm Top-Up?}
+    H -->|Yes| I[PROCESS TOP-UP<br/>- Processing Animation<br/>- Payment Gateway<br/>- Transaction Status<br/>- Please Wait Message]
+    H -->|No| E
+    
+    I --> J{Top-Up Success?}
+    J -->|Yes| K[TOP-UP SUCCESS<br/>- Success Icon<br/>- Amount Added<br/>- Transaction ID<br/>- New Wallet Balance<br/>- Payment Method Used<br/>- Transaction Date<br/>- Receipt Download<br/>- Done Button]
+    J -->|No| L[TOP-UP FAILED<br/>- Error Icon<br/>- Error Message<br/>- Failure Reason<br/>- Payment Status<br/>- Try Again Button<br/>- Contact Support<br/>- Back to Amount]
+    
+    K --> M[Back to Home Dashboard]
+    L --> E
+    F --> N[Add Payment Instrument Flow]
+    N --> C
+    
+    classDef startEnd fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef process fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef decision fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef success fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef error fill:#ffebee,stroke:#c62828,stroke-width:2px
+    classDef navigation fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    
+    class A,M startEnd
+    class D,H,J decision
+    class K success
+    class L error
+    class F,N navigation
+
