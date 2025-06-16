@@ -1,5 +1,7 @@
 # Smart Coop Architecture
 
+* Open with https://www.mermaidflow.app/editor
+
 ## 1. Authentication Flow
 <img src="./1.svg">
 
